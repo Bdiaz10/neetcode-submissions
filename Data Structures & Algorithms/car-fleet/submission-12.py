@@ -1,0 +1,15 @@
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        # process by closest to finish first (reverse by pos)
+        # calculate the time to target, add to stack
+        # if current fleet is supposed to reach target at same time, or before the fleet infront, combine them by popping
+
+        mylist = list(zip(position, speed))
+        mylist.sort(reverse=True)
+        fleets = []
+        for pair in mylist:
+            timeToTarget = (target - pair[0]) / pair[1]
+            if fleets and timeToTarget > fleets[-1] or not fleets:
+                fleets.append(timeToTarget)
+        
+        return len(fleets)
